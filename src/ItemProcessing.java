@@ -16,7 +16,7 @@ public class ItemProcessing {
     }
 
     private static void PrintData(int data, String Name) throws FileNotFoundException {
-        PrintWriter outputFile = new PrintWriter(Name+".txt");
+        PrintWriter outputFile = new PrintWriter("src/"+Name+".txt");
         outputFile.println(data);
         outputFile.close();
     }
