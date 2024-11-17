@@ -23,10 +23,10 @@ public class ArduinoCommunication {
         while(true){
             try {
                 // Sending ON command
-                int command = 1; // Change to "OFF\n" to stop the motor
-                port.getOutputStream().write(55);
+                String command = "ON\n"; // Change to "OFF\n" to stop the motor
+                port.getOutputStream().write(command.getBytes());
                 port.getOutputStream().flush();
-                System.out.println("Sent command: " + command);
+                System.out.println("Sent command: " + command.trim());
 
                 // Wait a moment for Arduino to respond
                 Thread.sleep(1000);
@@ -40,11 +40,11 @@ public class ArduinoCommunication {
                 Thread.sleep(2000);
 
                 // Sending OFF command
-//            command = "OFF\n";
-//            port.getOutputStream().write(command.getBytes());
-//            port.getOutputStream().flush();
-//            System.out.println("Sent command: " + command.trim());
-
+                command = "OFF\n";
+                port.getOutputStream().write(command.getBytes());
+                port.getOutputStream().flush();
+                System.out.println("Sent command: " + command.trim());
+                Thread.sleep(1000);
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
