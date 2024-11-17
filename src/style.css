@@ -5,24 +5,30 @@
 
 .main{
     width: 100%;
+
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 50%), src="mission_background.jpg";
+    background-position: center;
+    background-size: cover;
+
 }
 
 .menu{
-    width: 400px;
+    width: available;
     float: center;
-    height: 70px;
+    height: 200px;
 }
 
 /* Styling for menu bar */
 ul{
     background-color: rgb(0, 0, 0);
-    float: left;
+    float: center;
     display: flex;
     justify-content: center;
     align-items: center
 }
 
 ul li{
+    text-align:center
     list-style: none;
     margin-left: 150px;
     font-size: 30px
@@ -38,4 +44,59 @@ ul li a{
 
 ul li a:hover{
     color: red;
+}
+
+
+
+.cardleft {
+    width: 30%;
+    float: left;
+    border-collapse: collapse;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    text-align: center;
+    background-color: white;
+    font-family: arial;
+}
+.cardmid {
+    width: 30%;
+    position: absolute;
+    margin-left: 35%;
+   float: left;
+   border-collapse: collapse;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  text-align: center;
+  font-family: arial;
+}
+
+.cardright {
+    width: 30%;
+    position: relative;
+    margin-left: 70%;
+    border-collapse: collapse;
+
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+  text-align: center;
+  font-family: arial;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
 }
