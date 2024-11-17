@@ -18,6 +18,28 @@
     height: 200px;
 }
 
+.box{
+    width: 60%;
+    float: center;
+    text-align: center;
+    justify-content: center;
+    height: 630px;
+    background-color: white;
+    margin-left: 20%;
+    margin-right: 80%;
+}
+
+.box1{
+    width: 60%;
+    float: center;
+    text-align: center;
+    justify-content: center;
+    height: 370px;
+    background-color: white;
+    margin-left: 20%;
+    margin-right: 80%;
+}
+
 /* Styling for menu bar */
 ul{
     background-color: rgb(0, 0, 0);
@@ -43,13 +65,14 @@ ul li a{
 }
 
 ul li a:hover{
-    color: red;
+    color: green;
 }
 
 
 
 .cardleft {
-    width: 30%;
+    margin-left: 5%;
+    width: 25%;
     float: left;
     border-collapse: collapse;
 
@@ -59,9 +82,9 @@ ul li a:hover{
     font-family: arial;
 }
 .cardmid {
-    width: 30%;
+    width: 25%;
     position: absolute;
-    margin-left: 35%;
+    margin-left: 37.5%;
    float: left;
    border-collapse: collapse;
 
@@ -72,7 +95,7 @@ ul li a:hover{
 }
 
 .cardright {
-    width: 30%;
+    width: 25%;
     position: relative;
     margin-left: 70%;
     border-collapse: collapse;

@@ -10,12 +10,80 @@
 <div class="menu">
     <ul>
         <li><a href='http://localhost:63342/HackTheSkiesHackathon/src/home.html?_ijt=ablasj3etjo3ag8ls61i8m0ao1&_ij_reload=RELOAD_ON_SAVE'>HOME</a></li>
-        <li><a href='http://localhost:63342/HackTheSkiesHackathon/src/about.html?_ijt=ablasj3etjo3ag8ls61i8m0ao1&_ij_reload=RELOAD_ON_SAVE'>ABOUT</a></li>
         <li><a href='http://localhost:63342/HackTheSkiesHackathon/src/our_mission.html?_ijt=ablasj3etjo3ag8ls61i8m0ao1&_ij_reload=RELOAD_ON_SAVE'>OUR MISSION</a></li>
+        <li><a href='http://localhost:63342/HackTheSkiesHackathon/src/about.html?_ijt=ablasj3etjo3ag8ls61i8m0ao1&_ij_reload=RELOAD_ON_SAVE'>ABOUT US</a></li>
     </ul>
-    <h1>Home</h1>
-    <embed src="test.txt" width="300" height="200" type="text/plain">
+    <h1 style="font-family:verdana; text-align:center; font-size: 50px;">Eco Vision</h1>
 </div>
+
+<div class="box1">
+    <p style="color: white">-----------</p>
+    <h1 style="font-family:verdana; text-align:center; font-size: 40px;">Our Latest Innovation: Eco Lens</h1>
+    <p style="font-family:verdana; text-align:center; font-size: 20px;">Eco Lens is an innovative, AI-powered garbage bin designed to make waste management smarter</p>
+    <p style="font-family:verdana; text-align:center; font-size: 20px;">and more sustainable. Using advanced image recognition technology, Eco Lens identifies whether an</p>
+    <p style="font-family:verdana; text-align:center; font-size: 20px;">item is recyclable or non-recyclable and sorts it into the correct compartment automatically. By</p>
+    <p style="font-family:verdana; text-align:center; font-size: 20px;">simplifying the recycling process, Eco Lens empowers individuals and communities to reduce waste,</p>
+    <p style="font-family:verdana; text-align:center; font-size: 20px;">minimize environmental impact, and contribute to a greener future.</p>
+</div>
+
+<h1 style="font-family:verdana; text-align:center; font-size: 40px;">Eco Lens Stats</h1>
+
+<div class="cardleft">
+    <div style="display: flex; justify-content: center; align-items: center; height: 150px">
+        <div id="text-container1" style="font-size: 40px; display: flex; align-items: center; gap: 10px;">
+            <span id="intro-text1">Items Recycled:</span>
+            <span id="file-content1" style="white-space: pre;"></span>
+        </div>
+
+        <script>
+            fetch('Recycling.txt')
+              .then(response => response.text())
+              .then(data => {
+                document.getElementById('file-content1').textContent = data;
+              })
+              .catch(error => console.error('Error loading the file:', error));
+        </script>
+    </div>
+</div>
+
+
+<div class="cardmid">
+    <div style="display: flex; justify-content: center; align-items: center; height: 150px">
+        <div id="text-container2" style="font-size: 40px; display: flex; align-items: center; gap: 10px;">
+            <span id="intro-text2">Items Composted:</span>
+            <span id="file-content2" style="white-space: pre;"></span>
+        </div>
+
+        <script>
+            fetch('Compost.txt')
+              .then(response => response.text())
+              .then(data => {
+                document.getElementById('file-content2').textContent = data;
+              })
+              .catch(error => console.error('Error loading the file:', error));
+        </script>
+    </div>
+</div>
+
+<div class="cardright">
+    <div style="display: flex; justify-content: center; align-items: center; height: 150px">
+        <div id="text-container3" style="font-size: 40px; display: flex; align-items: center; gap: 10px;">
+            <span id="intro-text3">Items Thrown Out:</span>
+            <span id="file-content3" style="white-space: pre;"></span>
+        </div>
+
+        <script>
+            fetch('Garbage.txt')
+              .then(response => response.text())
+              .then(data => {
+                document.getElementById('file-content3').textContent = data;
+              })
+              .catch(error => console.error('Error loading the file:', error));
+        </script>
+    </div>
+</div>
+
+
 </body>
 
 </html>
