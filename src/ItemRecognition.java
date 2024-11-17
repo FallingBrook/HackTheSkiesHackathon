@@ -11,7 +11,7 @@ import java.util.*;
 public class ItemRecognition {
     static { System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
 
-    public static void main(String[] args) throws IOException {
+    public static String YAY() throws IOException, InterruptedException {
         // Paths to the YOLO files
         String modelWeights = "C:\\Users\\jacob\\Downloads\\yolov3.weights";
         String modelConfig = "C:\\Users\\jacob\\Downloads\\darknet-master\\darknet-master\\cfg\\yolov3.cfg";
@@ -21,30 +21,30 @@ public class ItemRecognition {
         List<String> classes = Files.readAllLines(Paths.get(classesFile));
         // Recycling items (items that can be recycled through curbside or specialized programs)
         Set<String> recyclingItems = new HashSet<>(Arrays.asList(
-                "Bicycle", "Car", "Motorbike", "Aeroplane", "Bus", "Train",
-                "Truck", "Boat", "Traffic light", "Fire hydrant", "Stop sign",
-                "Parking meter", "Bench", "Backpack", "Umbrella", "Handbag",
-                "Tie", "Suitcase", "Frisbee", "Skis", "Snowboard", "Sports ball",
-                "Kite", "Baseball bat", "Baseball glove", "Skateboard", "Surfboard",
-                "Tennis racket", "Bottle", "Wine glass", "Cup", "Fork", "Knife",
-                "Spoon", "Bowl", "Chair", "Sofa", "Pottedplant", "Bed", "Diningtable",
-                "TV monitor", "Laptop", "Mouse", "Remote", "Keyboard", "Cell phone",
-                "Microwave", "Oven", "Toaster", "Sink", "Refrigerator", "Book", "Clock",
-                "Vase"
+                "bicycle", "car", "motorbike", "aeroplane", "bus", "train",
+                "truck", "Boat", "traffic light", "fire hydrant", "stop sign",
+                "parking meter", "bench", "backpack", "umbrella", "handbag",
+                "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball",
+                "kite", "baseball bat", "baseball glove", "skateboard", "surfboard",
+                "tennis racket", "bottle", "wine glass", "cup", "fork", "knife",
+                "spoon", "bowl", "chair", "sofa", "pottedplant", "bed", "diningtable",
+                "tv monitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
+                "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock",
+                "vase"
         ));
 
         // Define a list of waste items based on coco.names
-        Set<String> wasteItems = new HashSet<>(Arrays.asList(
+        Set<String> CompostItems = new HashSet<>(Arrays.asList(
                 "banana", "apple", "sandwich", "orange", "brocolli",
                 "carrot", "hot dog", "pizza", "donut", "cake"
         ));
 
         // Garbage items (items that cannot be recycled or composted and are typically disposed of as waste)
         Set<String> garbageItems = new HashSet<>(Arrays.asList(
-                "Person", "Bird", "Cat", "Dog", "Horse", "Sheep", "Cow", "Elephant",
-                "Bear", "Zebra", "Giraffe", "Scissors", "Teddy bear", "Hair dryer",
-                "Toothbrush"
+                "scissors", "teddy bear", "hair dryer", "toothbrush"
         ));
+
+        double detectionCldwn = 2;
 
         // Initialize the YOLO neural network
         Net net = Dnn.readNetFromDarknet(modelConfig, modelWeights);
@@ -54,7 +54,7 @@ public class ItemRecognition {
         VideoCapture camera = new VideoCapture(0);
         if (!camera.isOpened()) {
             System.out.println("Error: Camera could not be opened");
-            return;
+            return(null);
         }
 
         Mat frame = new Mat();
@@ -67,7 +67,7 @@ public class ItemRecognition {
             List<Mat> outputs = new ArrayList<>();
             net.forward(outputs, net.getUnconnectedOutLayersNames());
 
-            float confidenceThreshold = 0.5f;
+            float confidenceThreshold = 0.25f;
             for (Mat output : outputs) {
                 for (int i = 0; i < output.rows(); i++) {
                     // Each row in the output represents a detected object
@@ -87,23 +87,30 @@ public class ItemRecognition {
                         int top = centerY - height / 2;
 
                         // Draw a bounding box around the detected object
-                        Imgproc.rectangle(frame, new Point(left, top), new Point(left + width, top + height), new Scalar(0, 255, 0), 2);
+//                        Imgproc.rectangle(frame, new Point(left, top), new Point(left + width, top + height), new Scalar(0, 255, 0), 2);
 
                         // Get the label for the class ID
                         String label = classes.get(classId) + ": " + String.format("%.2f", confidence);
 
-                        // Check if the detected object is recyclable
-                        String objectType = "";
-                        if(recyclingItems.contains(classes.get(classId)))
-                            objectType = "Recyclable";
-                        else if (wasteItems.contains(classes.get(classId))) {
-                            objectType = "Compost";
-                        }
-                        else
-                            objectType = "Garbage";
 
-                        // Display the result on the frame
-                        Imgproc.putText(frame, label + " (" + objectType + ")", new Point(left, top - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 255, 0), 1);
+                        if(garbageItems.contains(classes.get(classId)) || CompostItems.contains(classes.get(classId)) || recyclingItems.contains(classes.get(classId))){
+                            // Draw a bounding box around the detected object
+                            Imgproc.rectangle(frame, new Point(left, top), new Point(left + width, top + height), new Scalar(0, 255, 0), 2);
+                            // Display the result on the frame
+                            Imgproc.putText(frame, label, new Point(left, top - 10), Imgproc.FONT_HERSHEY_SIMPLEX, 0.5, new Scalar(0, 255, 0), 1);
+                        }
+
+                        if(detectionCldwn > 0){
+                            detectionCldwn-=0.02;
+                        }
+                        if (garbageItems.contains(classes.get(classId)))
+                            return("Garbage");
+                        else if (recyclingItems.contains(classes.get(classId)))
+                            return("Recycling");
+                        else if (CompostItems.contains(classes.get(classId)))
+                            return("Compost");
+                        else
+                            continue;
                     }
                 }
             }
@@ -119,5 +126,6 @@ public class ItemRecognition {
         // Release resources
         camera.release();
         HighGui.destroyAllWindows();
+        return null;
     }
 }
